@@ -1,6 +1,8 @@
 # leaflet-challenge
 Building a dashboard to visualize earthquake using USGS data with Leaflet, HTML and Javascript. 
 
+![1-Logo](https://www.usgs.gov/media/images/peter-haeussler-measures-offset-a-crevasse)
+
 ### Level 1: Create Visualization
 
 Your first task is to visualize an earthquake data set:
