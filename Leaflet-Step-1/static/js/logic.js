@@ -1,6 +1,8 @@
+// Create initial map object
+// Set longitude, latitude, and zoom level
 var myMap = L.map("mapid", {
-    center: [37.09, -95.71],
-    zoom: 4
+    center: [40.76, -111.89],
+    zoom: 5
   });
   
   // Add a tile layer (the background map image) to the map
@@ -13,7 +15,8 @@ var myMap = L.map("mapid", {
     id: "mapbox/light-v10",
     accessToken: API_KEY
   }).addTo(myMap);
-  
+
+// Create URL variable
 var URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 
 // Perform D3 Json request to the URL
@@ -66,4 +69,21 @@ d3.json(URL).then(function(data) {
   // Add data to myMap 
   }).addTo(myMap);
   
+    // Set Up Legend
+    var legend = L.control({ position: "bottomright" });
+    legend.onAdd = function() {
+        var div = L.DomUtil.create("div", "info legend"), 
+        magnitudeLevels = [0, 1, 2, 3, 4, 5];
+
+        div.innerHTML += "<h3>Magnitude</h3>"
+
+        for (var i = 0; i < magnitudeLevels.length; i++) {
+            div.innerHTML +=
+                '<i style="background: ' + chooseColor(magnitudeLevels[i] + 1) + '"></i> ' +
+                magnitudeLevels[i] + (magnitudeLevels[i + 1] ? '&ndash;' + magnitudeLevels[i + 1] + '<br>' : '+');
+        }
+        return div;
+    };
+    // Add Legend to the Map
+    legend.addTo(myMap);
 });
